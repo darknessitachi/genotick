@@ -51,7 +51,9 @@ class SimpleMutator implements Mutator {
 
     private Instruction createNewInstruction(int index) {
         try {
-            return (Instruction) instructionList.get(index).newInstance();
+            Instruction instruction = (Instruction) instructionList.get(index).newInstance();
+            instruction.mutate(this);
+            return instruction;
         } catch (InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
